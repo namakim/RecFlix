@@ -1,4 +1,5 @@
-import main.js;
+import RecommendationGenerator.java;
+import java.io.IOException;
 
 public class UnogsApiTest {
 
@@ -6,7 +7,7 @@ public class UnogsApiTest {
         String apiKey = "f0ff5c7516mshac0d2d4ab74f5e5p14af57jsn09d35d0a52c5";
 
         try {
-            String tvShowInfo = fetchTvShowInfo(apiKey);
+            String tvShowInfo = fetchNetflixWatchHistory(apiKey);
             System.out.println("TV Show Information:");
             System.out.println(tvShowInfo);
         } catch (IOException e) {

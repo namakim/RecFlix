@@ -1,63 +1,24 @@
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.io.IOException;
 
-public class NetflixAmazonRecommendations {
+public class RecommendationGenerator {
     // Function to fetch Netflix watch history
     // Make HTTP request to Netflix API and retrieve watch history data
     // Parse the response and return the watch history
-    public static String fetchNetflixWatchHistory(String apiKey) throws IOException {
+    public static String fetchNetflixWatchHistory(String apiKey) throws IOException, InterruptedException {
         // TODO: Implement code to fetch Netflix watch history
-        // Create the URL for the API endpoint
-        String url = "https://unogsng.p.rapidapi.com/search?type=series&countrylist=78&start_year=2010&orderby=rating";
-      
-        // Create the HttpURLConnection object
-        HttpURLConnection connection = null;
-        BufferedReader reader = null;
-        StringBuilder response = new StringBuilder();
-      
-        try {
-            // Create a URL object with the API endpoint
-            URL apiUrl = new URL(url);
-          
-            // Open a connection to the API URL
-            connection = (HttpURLConnection) apiUrl.openConnection();
-          
-            // Set the HTTP request method (GET)
-            connection.setRequestMethod("GET");
-          
-            // Set the API key in the request header
-            connection.setRequestProperty("X-RapidAPI-Key", apiKey);
-          
-            // Send the request and get the response code
-            int responseCode = connection.getResponseCode();
-          
-            // If the response code indicates success
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Read the response from the API
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-              
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-            } else {
-                // Handle the error response if needed
-                System.out.println("Error: " + responseCode);
-            }
-        } finally {
-            // Close the connection and reader
-            if (connection != null) {
-                connection.disconnect();
-            }
-            if (reader != null) {
-                reader.close();
-            }
-        }
-      
-        // Return the response as a string
-        return response.toString();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://unogs-unogs-v1.p.rapidapi.com/search/titles?person=Brad%20Pitt&order_by=rating&limit=5&type=movie"))
+                .header("X-RapidAPI-Key", apiKey)
+                .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
     }
   
     // Function to fetch Amazon watch history
@@ -78,22 +39,24 @@ public class NetflixAmazonRecommendations {
   
     public static void main(String[] args) {
         // Fetch watch history from Netflix and Amazon
-        String netflixHistory = fetchNetflixWatchHistory();
-        String amazonHistory = fetchAmazonWatchHistory();
+        // String netflixHistory = fetchNetflixWatchHistory();
+        // String amazonHistory = fetchAmazonWatchHistory();
       
         // Recommend unwatched shows and films based on the watch history
-        recommendShowsAndFilms(netflixHistory, amazonHistory);
+        // recommendShowsAndFilms(netflixHistory, amazonHistory);
 
         // Replace "<YOUR_API_KEY>" with your actual uNoGS API key
         String apiKey = "f0ff5c7516mshac0d2d4ab74f5e5p14af57jsn09d35d0a52c5";
       
         try {
             // Fetch TV show information from the uNoGS API
-            String tvShowInfo = fetchTvShowInfo(apiKey);
+            String tvShowInfo = fetchNetflixWatchHistory(apiKey);
           
             // Process the TV show information as needed
             System.out.println(tvShowInfo);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
