@@ -174,7 +174,7 @@ public class RecommendationGenerator {
     public static void main(String[] args) {
 
         // Replace "<YOUR_API_KEY>" with your actual uNoGS API key
-        String apiKey = "f0ff5c7516mshac0d2d4ab74f5e5p14af57jsn09d35d0a52c5";
+        String apiKey = "<API Key>";
         String GENRE = "";
         String TITLE_TYPE = "";
         String YEAR = "";
