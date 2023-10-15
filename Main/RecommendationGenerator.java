@@ -88,22 +88,6 @@ public class RecommendationGenerator {
         }
         return null;
     }
-  
-    // Function to fetch Amazon watch history
-    public static String fetchAmazonWatchHistory() {
-        // TODO: Implement code to fetch Amazon watch history
-        // Make HTTP request to Amazon API and retrieve watch history data
-        // Parse the response and return the watch history
-        return null;
-    }
-  
-    // Function to recommend unwatched TV shows and films
-    public static void recommendShowsAndFilms(String netflixHistory, String amazonHistory) {
-        // TODO: Implement code to recommend unwatched shows and films
-        // Analyze the watch history data
-        // Filter and sort recommendations based on certain criteria
-        // Display the recommendations to the user
-    }
 
     // Fucntion to prompt for User inputs for their Serach
     public static String userInputs(String titleType, String year, String person, String genre) {
