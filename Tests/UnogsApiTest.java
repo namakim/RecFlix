@@ -3,8 +3,9 @@ import java.io.IOException;
 
 public class UnogsApiTest {
 
+    // TODO: Finish writing test class for RecFlix
     public static void main(String[] args) {
-        String apiKey = "f0ff5c7516mshac0d2d4ab74f5e5p14af57jsn09d35d0a52c5";
+        String apiKey = "<API Key>";
 
         try {
             String tvShowInfo = fetchNetflixWatchHistory(apiKey);
