@@ -144,10 +144,10 @@ public class RecommendationGenerator {
         return apiStr;
     }
 
-    public static String getGenreList(String genre) throws IOException, InterruptedException {
+    public static String getGenreList(String genre, String apiKey) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
 		.uri(URI.create("https://unogs-unogs-v1.p.rapidapi.com/static/genres"))
-		.header("X-RapidAPI-Key", "f0ff5c7516mshac0d2d4ab74f5e5p14af57jsn09d35d0a52c5")
+		.header("X-RapidAPI-Key", apiKey)
 		.header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
 		.method("GET", HttpRequest.BodyPublishers.noBody())
 		.build();
